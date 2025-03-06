@@ -7,6 +7,7 @@ export interface Task {
   timeSpent: number;
   timeEstimate: number;
   createdAt: Date;
+  comments: Comment[];
 }
 
 export interface User {
@@ -23,3 +24,11 @@ export interface Project {
   tasks: Task[];
   members: User[];
 }
+
+export interface Comment {
+  id: number;
+  text: string;
+  author: string;
+  date: Date;
+}
+

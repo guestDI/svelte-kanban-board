@@ -4,19 +4,19 @@ export const users: User[] = [
   {
     id: '1',
     name: 'John Doe',
-    avatar: 'https://ui-avatars.com/api/?name=John+Doe',
+    avatar: 'https://i.pravatar.cc/150?img=13',
     role: 'Project Manager'
   },
   {
     id: '2',
     name: 'Jane Smith',
-    avatar: 'https://ui-avatars.com/api/?name=Jane+Smith',
+    avatar: 'https://i.pravatar.cc/150?img=32',
     role: 'Developer'
   },
   {
     id: '3',
     name: 'Mike Johnson',
-    avatar: 'https://ui-avatars.com/api/?name=Mike+Johnson',
+    avatar: 'https://i.pravatar.cc/150?img=67',
     role: 'Designer'
   }
 ];
@@ -30,7 +30,8 @@ export const tasks: Task[] = [
     assignee: '3',
     timeSpent: 4,
     timeEstimate: 8,
-    createdAt: new Date('2024-03-15')
+    createdAt: new Date('2024-03-15'),
+    comments: []
   },
   {
     id: '2',
@@ -40,17 +41,30 @@ export const tasks: Task[] = [
     assignee: '2',
     timeSpent: 0,
     timeEstimate: 12,
-    createdAt: new Date('2024-03-16')
+    createdAt: new Date('2024-03-16'),
+    comments: []
   },
   {
     id: '3',
+    title: 'Implement dev pipeline ',
+    description: 'Set up pipeline for dev branch',
+    status: 'todo',
+    assignee: '2',
+    timeSpent: 0,
+    timeEstimate: 12,
+    createdAt: new Date('2024-03-16'),
+    comments: []
+  },
+  {
+    id: '4',
     title: 'Project Planning',
     description: 'Create project timeline and resource allocation',
     status: 'done',
     assignee: '1',
     timeSpent: 6,
     timeEstimate: 6,
-    createdAt: new Date('2024-03-14')
+    createdAt: new Date('2024-03-14'),
+    comments: []
   }
 ];
 

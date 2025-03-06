@@ -4,16 +4,21 @@
   export let tasks: Task[];
   
   $: completedTasks = tasks.filter(t => t.status === 'done').length;
+  $: inProgressTasks = tasks.filter(t => t.status === 'in-progress').length;
   $: totalTime = tasks.reduce((acc, t) => acc + t.timeSpent, 0);
   $: progress = (completedTasks / tasks.length) * 100;
 </script>
 
 <div class="bg-white rounded-lg p-4">
   <h2 class="text-xl font-semibold mb-4">Project Statistics</h2>
-  <div class="grid grid-cols-3 gap-4">
+  <div class="grid grid-cols-4 gap-4">
     <div class="text-center">
       <div class="text-2xl font-bold">{tasks.length}</div>
       <div class="text-gray-500">Total Tasks</div>
+    </div>
+    <div class="text-center">
+      <div class="text-2xl font-bold">{inProgressTasks}</div>
+      <div class="text-gray-500">In Progress</div>
     </div>
     <div class="text-center">
       <div class="text-2xl font-bold">{completedTasks}</div>
