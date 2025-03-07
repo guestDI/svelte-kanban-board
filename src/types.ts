@@ -2,12 +2,14 @@ export interface Task {
   id: string;
   title: string;
   description: string;
-  status: 'todo' | 'in-progress' | 'review' | 'done';
+  priority: Priority;
+  status: Status;
   assignee: string;
   timeSpent: number;
   timeEstimate: number;
   createdAt: Date;
   comments: Comment[];
+  label?: string[];
 }
 
 export interface User {
@@ -31,4 +33,8 @@ export interface Comment {
   author: string;
   date: Date;
 }
+
+export type Status = 'todo' | 'in-progress' | 'review' | 'done';
+
+export type Priority = 'low' | 'medium' | 'high';
 

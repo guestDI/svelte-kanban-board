@@ -28,6 +28,7 @@ export const tasks: Task[] = [
     description: 'Create wireframes and mockups for the main dashboard',
     status: 'in-progress',
     assignee: '3',
+    priority: 'high',
     timeSpent: 4,
     timeEstimate: 8,
     createdAt: new Date('2024-03-15'),
@@ -39,6 +40,7 @@ export const tasks: Task[] = [
     description: 'Set up user authentication and authorization',
     status: 'todo',
     assignee: '2',
+    priority: 'high',
     timeSpent: 0,
     timeEstimate: 12,
     createdAt: new Date('2024-03-16'),
@@ -50,9 +52,11 @@ export const tasks: Task[] = [
     description: 'Set up pipeline for dev branch',
     status: 'todo',
     assignee: '2',
+    priority: 'medium',
     timeSpent: 0,
     timeEstimate: 12,
     createdAt: new Date('2024-03-16'),
+    label: ['Release 1', 'CI/CD'],
     comments: []
   },
   {
@@ -60,9 +64,11 @@ export const tasks: Task[] = [
     title: 'Project Planning',
     description: 'Create project timeline and resource allocation',
     status: 'done',
+    priority: 'high',
     assignee: '1',
     timeSpent: 6,
     timeEstimate: 6,
+    label: ['Project setup'],
     createdAt: new Date('2024-03-14'),
     comments: []
   }

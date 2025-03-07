@@ -13,7 +13,11 @@
   
   const statuses = ['todo', 'in-progress', 'review', 'done'] as const;
   type Status = typeof statuses[number];
-  
+
+  function getAssignee(task: Task) {
+    return users.find(u => u.id === task.assignee);
+  }
+
   function getTasksByStatus(status: Status) {
     return tasks.filter(task => task.status === status);
   }
@@ -98,13 +102,29 @@
                       on:click={() => selectTask(task)}
                       on:keydown={(e) => e.key === 'Enter' && selectTask(task)}
               >
-                <h4 class="font-medium">{task.title}</h4>
+                <div class="flex items justify-between">
+                  <h4 class="font-medium">{task.title}</h4>
+                  {#if getAssignee(task)}
+                    <img src={getAssignee(task)?.avatar} alt={getAssignee(task)?.name} class="w-7 h-7 rounded-full">
+                  {/if}
+                </div>
                 <p class="text-sm text-gray-600">{task.description}</p>
                 <div class="mt-2 text-sm text-gray-500">
-                  Time: {task.timeSpent}/{task.timeEstimate}h
+                  {#if task.label && task.label.length > 0}
+                    <div class="flex flex-wrap gap-1">
+                      {#each task.label as label}
+        <span class="px-2 py-1 rounded-full text-white text-xs" style="background-color: {`#${Math.floor(Math.random()*16777215).toString(16)}`}">
+          {label}
+        </span>
+                      {/each}
+                    </div>
+                  {/if}
                 </div>
                 <div class="mt-2 text-sm text-gray-500">
-                  Assignee: {users.find(u => u.id === task.assignee)?.name || 'Unassigned'}
+                  Priority: {task.priority}
+                </div>
+                <div class="mt-2 text-sm text-gray-500">
+                  Time: {task.timeSpent}/{task.timeEstimate}h
                 </div>
               </div>
             {/each}

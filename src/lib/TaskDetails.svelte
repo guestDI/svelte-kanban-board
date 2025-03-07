@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Task } from '../types';
+    import type {Status, Task} from '../types';
     import {users} from "../mockData";
     import { createEventDispatcher } from 'svelte';
 
@@ -9,7 +9,8 @@
     }>();
 
     export let selectedTask: Task;
-    let timeSpentInput: number | null = null;
+    let timeSpentInput: number | null = selectedTask.timeSpent;
+    $: timeSpentInput = selectedTask.timeSpent;
     let newComment: string = '';
 
     function updateTimeSpent() {
@@ -36,8 +37,25 @@
 
             dispatch('updateTask', { task: updatedTask });
             newComment = '';
-            console.log(updatedTask);
         }
+    }
+
+    function changeStatus(event: Event) {
+        const status = (event.target as HTMLSelectElement).value as Status;
+        const updatedTask = {
+            ...selectedTask,
+            status: status
+        };
+        dispatch('updateTask', { task: updatedTask });
+    }
+
+    function changeAssignee(event: Event) {
+        const assignee = (event.target as HTMLSelectElement).value;
+        const updatedTask = {
+            ...selectedTask,
+            assignee: assignee
+        };
+        dispatch('updateTask', { task: updatedTask });
     }
 
     function closePanel() {
@@ -47,7 +65,7 @@
 </script>
 
 {#key selectedTask}
-<div class="w-80 bg-white border-l border-gray-200 p-4 h-screen overflow-y-auto">
+<div class="w-full bg-white border-l border-gray-200 p-4 h-screen overflow-y-auto">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold">{selectedTask.title}</h2>
         <button
@@ -65,13 +83,34 @@
     </div>
 
     <div class="mb-4">
+        <h3 class="font-medium mb-2">Priority</h3>
+        <p class="text-gray-700 capitalize">{selectedTask.priority}</p>
+    </div>
+
+    <div class="mb-4">
         <h3 class="font-medium mb-2">Status</h3>
-        <div class="bg-gray-100 px-2 py-1 rounded inline-block capitalize">{selectedTask.status}</div>
+        <select
+                class="bg-gray-100 px-2 py-1 rounded capitalize"
+                value={selectedTask.status}
+                on:change={changeStatus}
+        >
+            {#each ['todo', 'in-progress', 'review', 'done'] as status}
+                <option value={status} class="capitalize">{status}</option>
+            {/each}
+        </select>
     </div>
 
     <div class="mb-4">
         <h3 class="font-medium mb-2">Assignee</h3>
-        <div>{users.find(u => u.id === selectedTask.assignee)?.name || 'Unassigned'}</div>
+        <select
+                class="bg-gray-100 px-2 py-1 rounded capitalize"
+                value={selectedTask.assignee}
+                on:change={changeAssignee}
+        >
+            {#each users as user}
+                <option value={user.id} class="capitalize">{user.name}</option>
+            {/each}
+        </select>
     </div>
 
     <div class="mb-4">
